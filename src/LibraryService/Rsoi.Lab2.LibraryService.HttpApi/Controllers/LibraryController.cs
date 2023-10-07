@@ -116,6 +116,10 @@ public class LibraryController : ControllerBase
 
             newStateBooksId = newBooksId;
         }
+        else
+        {
+            newStateBooksId = booksWithNewState.Id;
+        }
         
         var libraryBooks = await _libraryBooksRepository.FindLibraryBooksByBooksIdAndLibraryIdAsync(newStateBooksId, libraryId);
 
