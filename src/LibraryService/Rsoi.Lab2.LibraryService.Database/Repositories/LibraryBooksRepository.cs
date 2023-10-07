@@ -18,7 +18,7 @@ public class LibraryBooksRepository : ILibraryBooksRepository
     {
         var libraryBooks = new LibraryBooks(Guid.NewGuid(), libraryId, booksId, count);
 
-        await _libraryContext.LibrariesBooks.AddAsync(libraryBooks);
+        _libraryContext.LibraryBooks.Add(libraryBooks);
 
         await _libraryContext.SaveChangesAsync();
 
@@ -27,7 +27,7 @@ public class LibraryBooksRepository : ILibraryBooksRepository
 
     public async Task EditLibraryBooksCountAsync(Guid id, int count)
     {
-        var libraryBooks = await _libraryContext.LibrariesBooks
+        var libraryBooks = await _libraryContext.LibraryBooks
             .FirstAsync(lb => lb.Id == id);
 
         libraryBooks.Count = count;
@@ -37,7 +37,7 @@ public class LibraryBooksRepository : ILibraryBooksRepository
 
     public async Task IncrementLibraryBooksCountAsync(Guid id)
     {
-        var libraryBooks = await _libraryContext.LibrariesBooks
+        var libraryBooks = await _libraryContext.LibraryBooks
             .FirstAsync(lb => lb.Id == id);
 
         libraryBooks.Count++;
@@ -47,7 +47,7 @@ public class LibraryBooksRepository : ILibraryBooksRepository
 
     public async Task DecrementLibraryBooksCountAsync(Guid id)
     {
-        var libraryBooks = await _libraryContext.LibrariesBooks
+        var libraryBooks = await _libraryContext.LibraryBooks
             .FirstAsync(lb => lb.Id == id);
 
         libraryBooks.Count--;
@@ -56,7 +56,7 @@ public class LibraryBooksRepository : ILibraryBooksRepository
 
     public async Task<Core.Models.LibraryBooks?> FindLibraryBooksByBooksIdAndLibraryIdAsync(Guid booksId, Guid libraryId)
     {
-        var libraryBooks = await _libraryContext.LibrariesBooks
+        var libraryBooks = await _libraryContext.LibraryBooks
             .AsNoTracking()
             .FirstOrDefaultAsync(lb => lb.BooksId == booksId 
                               && lb.LibraryId == libraryId);
@@ -66,7 +66,7 @@ public class LibraryBooksRepository : ILibraryBooksRepository
 
     public async Task<List<Core.Models.LibraryBooks>> GetLibraryBooksByLibraryIdAsync(Guid libraryId, int? take, int? skip)
     {
-        var librariesBooksQuery = _libraryContext.LibrariesBooks
+        var librariesBooksQuery = _libraryContext.LibraryBooks
             .Where(lb => lb.LibraryId == libraryId);
 
         if (take is not null)
