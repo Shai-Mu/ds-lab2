@@ -35,7 +35,7 @@ public class RatingRepository : IRatingRepository
         return RatingConverter.Convert(rating);
     }
 
-    public async Task EditRating(Guid id, int stars)
+    public async Task EditRatingAsync(Guid id, int stars)
     {
         var rating = await _ratingContext.Ratings
             .FirstAsync(r => r.Id == id);

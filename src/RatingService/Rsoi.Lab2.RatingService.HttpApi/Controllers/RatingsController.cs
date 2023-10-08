@@ -43,7 +43,7 @@ public class RatingsController : ControllerBase
             return ValidationProblem(validationErrors);
         }
                 
-        await _ratingRepository.EditRating(id, stars);
+        await _ratingRepository.EditRatingAsync(id, stars);
 
         return Ok();
     }
