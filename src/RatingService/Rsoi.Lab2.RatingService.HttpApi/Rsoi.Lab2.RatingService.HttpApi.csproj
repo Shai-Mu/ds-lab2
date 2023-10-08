@@ -1,11 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>dotnet-Lab2.LibrarySystem-C3A0E5A7-C67D-4DE1-A224-2686884E0ABA</UserSecretsId>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,11 +15,11 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        </PackageReference> 
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Rsoi.Lab2.LibraryService.Database\Rsoi.Lab2.LibraryService.Database.csproj" />
-      <ProjectReference Include="..\Rsoi.Lab2.LibraryService.Dto\Rsoi.Lab2.LibraryService.Dto.csproj" />
+      <ProjectReference Include="..\Rsoi.Lab2.RatingService.Core\Rsoi.Lab2.RatingService.Core.csproj" />
+      <ProjectReference Include="..\Rsoi.Lab2.RatingService.Database\Rsoi.Lab2.RatingService.Database.csproj" />
     </ItemGroup>
 </Project>

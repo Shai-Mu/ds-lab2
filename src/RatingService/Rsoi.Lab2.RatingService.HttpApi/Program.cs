@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Hosting;
-
-namespace Rsoi.Lab2.LibraryService.HttpApi;
+namespace Rsoi.Lab2.RatingService.HttpApi;
 
 public static class Program
 {

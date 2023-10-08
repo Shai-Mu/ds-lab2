@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Rsoi.Lab2.LibraryService.Core.Interfaces;
-using Rsoi.Lab2.LibraryService.Database;
-using Rsoi.Lab2.LibraryService.Database.Repositories;
+using Rsoi.Lab2.RatingService.Core;
+using Rsoi.Lab2.RatingService.Database;
 
-namespace Rsoi.Lab2.LibraryService.HttpApi;
+namespace Rsoi.Lab2.RatingService.HttpApi;
 
 public class Startup
 {
@@ -25,23 +22,20 @@ public class Startup
         
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Library service", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rating service", Version = "v1" });
             
         });
         services.AddSwaggerGenNewtonsoftSupport();
         
-        services.AddDbContext<LibraryContext>(options =>
+        services.AddDbContext<RatingContext>(options =>
         {
             options.UseNpgsql(Configuration.GetConnectionString("Default"));
         });
 
-        services.AddTransient<IBooksRepository, BooksRepository>();
-        services.AddTransient<ILibraryRepository, LibraryRepository>();
-        services.AddTransient<ILibraryBooksRepository, LibraryBooksRepository>();
-        
+        services.AddTransient<IRatingRepository, RatingRepository>();
+
         services.AddControllers()
             .AddNewtonsoftJson();
-        
     }
     
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

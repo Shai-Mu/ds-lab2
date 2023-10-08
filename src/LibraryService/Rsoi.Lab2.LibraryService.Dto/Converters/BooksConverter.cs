@@ -11,7 +11,7 @@ public static class BooksConverter
         return new BooksWithCount(coreBooks.Id, 
             coreBooks.Name, 
             coreBooks.Author, 
-            coreBooks.Author, 
+            coreBooks.Genre, 
             coreBooks.Condition,
             count);
     }
@@ -21,7 +21,7 @@ public static class BooksConverter
         return new DtoBooks(coreBooks.Id, 
             coreBooks.Name, 
             coreBooks.Author, 
-            coreBooks.Author, 
+            coreBooks.Genre, 
             coreBooks.Condition);
     }
 }

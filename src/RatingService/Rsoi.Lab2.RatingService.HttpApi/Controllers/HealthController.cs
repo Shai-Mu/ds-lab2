@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Rsoi.Lab2.LibraryService.HttpApi.Controllers;
+namespace Rsoi.Lab2.RatingService.HttpApi.Controllers;
 
 public class HealthController : ControllerBase
 {

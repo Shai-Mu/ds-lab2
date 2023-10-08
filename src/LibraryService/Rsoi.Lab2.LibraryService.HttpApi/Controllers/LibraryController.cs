@@ -5,7 +5,7 @@ using Rsoi.Lab2.LibraryService.Core.Models.Enums;
 using Rsoi.Lab2.LibraryService.Dto.Converters;
 using Rsoi.Lab2.LibraryService.Dto.Models;
 
-namespace Rsoi.Lab2.LibrarySystem.Controllers;
+namespace Rsoi.Lab2.LibraryService.HttpApi.Controllers;
 
 public class LibraryController : ControllerBase
 {
