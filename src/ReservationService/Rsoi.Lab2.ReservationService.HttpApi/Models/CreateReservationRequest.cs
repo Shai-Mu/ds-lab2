@@ -5,12 +5,16 @@ namespace Rsoi.Lab2.ReservationService.HttpApi.Models;
 [DataContract]
 public class CreateReservationRequest
 {
+    [DataMember]
     public string Username { get; set; }
     
+    [DataMember]
     public Guid BooksId { get; set; } 
     
+    [DataMember]
     public Guid LibraryId { get; set; }
     
+    [DataMember]
     public DateTimeOffset TillDate { get; set; }
 
     public CreateReservationRequest(string username, 

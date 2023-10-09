@@ -16,7 +16,7 @@ public class ReservationsController : ControllerBase
 
     [HttpPost]
     [Route("reservations")]
-    public async Task<IActionResult> CreateReservationAsync([FromBody]CreateReservationRequest createReservationRequest)
+    public async Task<IActionResult> CreateReservationAsync([FromBody][Required]CreateReservationRequest createReservationRequest)
     {
         var reservationId = await _reservationRepository.CreateReservationAsync(
             createReservationRequest.Username,
