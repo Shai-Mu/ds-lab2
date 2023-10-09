@@ -1,3 +1,6 @@
+using Rsoi.Lab2.RatingService.Database;
+using Rsoi.Lab2.RatingService.HttpApi.Extensions;
+
 namespace Rsoi.Lab2.RatingService.HttpApi;
 
 public static class Program
@@ -8,6 +11,7 @@ public static class Program
         {
             CreateHostBuilder(args)
                 .Build()
+                .MigrateDatabase<RatingContext>()
                 .Run();
         }
         catch (Exception e)

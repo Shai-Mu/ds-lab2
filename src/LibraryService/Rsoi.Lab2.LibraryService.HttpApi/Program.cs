@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
+using Rsoi.Lab2.LibraryService.Database;
+using Rsoi.Lab2.LibraryService.HttpApi.Extensions;
 
 namespace Rsoi.Lab2.LibraryService.HttpApi;
 
@@ -10,6 +12,7 @@ public static class Program
         {
             CreateHostBuilder(args)
                 .Build()
+                .MigrateDatabase<LibraryContext>()
                 .Run();
         }
         catch (Exception e)

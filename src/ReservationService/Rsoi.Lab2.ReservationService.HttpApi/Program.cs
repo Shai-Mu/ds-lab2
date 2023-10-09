@@ -1,3 +1,6 @@
+using Rsoi.Lab2.ReservationService.Database;
+using Rsoi.Lab2.ReservationService.HttpApi.Extensions;
+
 namespace Rsoi.Lab2.ReservationService.HttpApi;
 
 public static class Program
@@ -8,6 +11,7 @@ public static class Program
         {
             CreateHostBuilder(args)
                 .Build()
+                .MigrateDatabase<ReservationContext>()
                 .Run();
         }
         catch (Exception e)
