@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
+using Rsoi.Lab2.GatewayService.Services.Confiugration;
+using Rsoi.Lab2.GatewayService.Services.LibraryService;
 
-namespace Rsoi.Lab2.LibrarySystem;
+namespace Rsoi.Lab2.GatewayService.HttpApi;
 
 public class Startup
 {
@@ -16,7 +16,6 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers()
-            
             .AddNewtonsoftJson();
         
         services.AddSwaggerGen(c =>
@@ -28,7 +27,11 @@ public class Startup
 
         services.AddControllers()
             .AddNewtonsoftJson();
+
+        services.Configure<ServiceConfiguration>(Configuration.GetSection(nameof(ServiceConfiguration)));
         
+        services.AddSingleton<LibraryServiceClient>();
+
     }
     
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -14,14 +14,14 @@ namespace Rsoi.Lab2.GatewayService.HttpApi.Models
         /// </summary>
         /// <value>Номер страницы</value>
         [DataMember(Name="page")]
-        public decimal Page { get; set; }
+        public decimal? Page { get; set; }
 
         /// <summary>
         /// Количество элементов на странице
         /// </summary>
         /// <value>Количество элементов на странице</value>
         [DataMember(Name="pageSize")]
-        public decimal PageSize { get; set; }
+        public decimal? PageSize { get; set; }
 
         /// <summary>
         /// Общее количество элементов
@@ -36,8 +36,8 @@ namespace Rsoi.Lab2.GatewayService.HttpApi.Models
         [DataMember(Name="items")]
         public List<LibraryResponse> Items { get; set; }
 
-        public LibraryPaginationResponse(decimal page,
-            decimal pageSize,
+        public LibraryPaginationResponse(decimal? page,
+            decimal? pageSize,
             decimal totalElements,
             List<LibraryResponse> items)
         {

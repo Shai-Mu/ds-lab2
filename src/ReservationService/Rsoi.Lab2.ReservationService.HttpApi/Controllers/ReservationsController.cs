@@ -18,13 +18,13 @@ public class ReservationsController : ControllerBase
     [Route("reservations")]
     public async Task<IActionResult> CreateReservationAsync([FromBody][Required]CreateReservationRequest createReservationRequest)
     {
-        var reservationId = await _reservationRepository.CreateReservationAsync(
+        var reservation = await _reservationRepository.CreateReservationAsync(
             createReservationRequest.Username,
             createReservationRequest.BooksId, 
             createReservationRequest.LibraryId, 
             createReservationRequest.TillDate);
 
-        return Ok(reservationId);
+        return Ok(reservation);
     }
 
     [HttpGet]
@@ -38,7 +38,7 @@ public class ReservationsController : ControllerBase
 
     [HttpGet]
     [Route("reservations")]
-    public async Task<IActionResult> GetReservationAsync(
+    public async Task<IActionResult> GetReservationForCredentialsAsync(
         [FromBody][Required] GetReservationRequest getReservationRequest)
     {
         var reservation = await _reservationRepository.GetReservationForUserBookAndLibraryAsync(
@@ -51,19 +51,20 @@ public class ReservationsController : ControllerBase
 
     [HttpPatch]
     [Route("reservations/{id}")]
-    public async Task<IActionResult> CloseReservationAsync([FromRoute]Guid id)
+    public async Task<IActionResult> CloseReservationAsync([FromRoute]Guid id, [FromQuery]DateTimeOffset closeDate)
     {
         var reservation = await _reservationRepository.FindReservationAsync(id);
 
         if (reservation is null)
             return NotFound();
 
-        var status = reservation.TillDate.Date > DateTimeOffset.Now.Date 
+        var status = reservation.TillDate.Date > closeDate.Date 
             ? ReservationStatus.Returned 
             : ReservationStatus.Expired;
 
         await _reservationRepository.UpdateReservationAsync(id, status);
 
-        return Ok(new CloseReservationResponse(status, DateTimeOffset.Now.Date));
+        return Ok(new CloseReservationResponse((await _reservationRepository.FindReservationAsync(id))!,
+            closeDate.Date));
     }
 }

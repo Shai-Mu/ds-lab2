@@ -64,19 +64,23 @@ public class LibraryBooksRepository : ILibraryBooksRepository
         return LibraryBooksConverter.Convert(libraryBooks);
     }
 
-    public async Task<List<Core.Models.LibraryBooks>> GetLibraryBooksByLibraryIdAsync(Guid libraryId, int? take, int? skip)
+    public async Task<List<Core.Models.LibraryBooks>> GetLibraryBooksByLibraryIdAsync(Guid libraryId,
+        int? page,
+        int? size)
     {
         var librariesBooksQuery = _libraryContext.LibraryBooks
+            .AsNoTracking()
             .Where(lb => lb.LibraryId == libraryId);
 
-        if (take is not null)
-            librariesBooksQuery = librariesBooksQuery.Take(take.Value);
+        if (page is not null && size is not null)
+            librariesBooksQuery = librariesBooksQuery
+                .Skip(page.Value * size.Value);
         
-        if (skip is not null)
-            librariesBooksQuery = librariesBooksQuery.Take(skip.Value);
+        if (size is not null)
+            librariesBooksQuery = librariesBooksQuery
+                .Take(size.Value);
 
         var librariesBooks = await librariesBooksQuery
-            .AsNoTracking()
             .ToListAsync();
             
 

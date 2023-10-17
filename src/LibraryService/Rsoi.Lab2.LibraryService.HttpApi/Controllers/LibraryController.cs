@@ -24,9 +24,11 @@ public class LibraryController : ControllerBase
 
     [HttpGet]
     [Route("libraries")]
-    public async Task<IActionResult> GetCityLibrariesAsync([FromQuery]string city)
+    public async Task<IActionResult> GetCityLibrariesAsync([FromQuery] [Required] string city,
+        [FromQuery] int? page = null,
+        [FromQuery] int? size = null)
     {
-        var cityLibraries = await _libraryRepository.GetLibrariesForCity(city);
+        var cityLibraries = await _libraryRepository.GetLibrariesForCity(city, page, size);
 
         return Ok(cityLibraries);
     }
@@ -62,17 +64,21 @@ public class LibraryController : ControllerBase
     [HttpGet]
     [Route("libraries/{id}/books")]
     public async Task<IActionResult> GetBooksForLibrary([FromRoute] Guid id, 
-        [FromQuery] int? take = null,
-        [FromQuery] int? skip = null)
+        [FromQuery] int? page = null,
+        [FromQuery] int? size = null,
+        [FromQuery] bool? showAll = null)
     {
-        var libraryBooksList = await _libraryBooksRepository.GetLibraryBooksByLibraryIdAsync(id, take, skip);
+        var libraryBooksList = await _libraryBooksRepository.GetLibraryBooksByLibraryIdAsync(id, page, size);
 
         var resultBooks = new List<BooksWithCount>();
         
         foreach (var libraryBooks in libraryBooksList)
         {
-            var books = _booksRepository.GetBooksAsync(libraryBooks.BooksId).Result;
-            resultBooks.Add(BooksConverter.ConvertWithCount(books, libraryBooks.AvailableCount));
+            if (libraryBooks.AvailableCount > 0 || (showAll.HasValue && showAll.Value))
+            {
+                var books = _booksRepository.GetBooksAsync(libraryBooks.BooksId).Result;
+                resultBooks.Add(BooksConverter.ConvertWithCount(books, libraryBooks.AvailableCount));
+            }
         }
 
         return Ok(resultBooks);
@@ -100,7 +106,7 @@ public class LibraryController : ControllerBase
     [Route("libraries/{libraryId}/books/{booksId}/increment")]
     public async Task<IActionResult> IncrementBooksCount([FromRoute] Guid libraryId, [FromRoute] Guid booksId, [FromQuery]BookCondition newState)
     {
-        Guid newStateBooksId = booksId;
+        Guid newStateBooksId;
         Guid newStateLibraryBooksId;
         
         var books = await _booksRepository.GetBooksAsync(booksId);
@@ -139,11 +145,14 @@ public class LibraryController : ControllerBase
 
     [HttpPatch]
     [Route("libraries/{libraryId}/books/{booksId}/decrement")]
-    public async Task<IActionResult> IncrementBooksCount([FromRoute] Guid libraryId, [FromRoute] Guid booksId)
+    public async Task<IActionResult> DecrementBooksCount([FromRoute] Guid libraryId, [FromRoute] Guid booksId)
     {
         var libraryBooks = await _libraryBooksRepository.FindLibraryBooksByBooksIdAndLibraryIdAsync(booksId, libraryId);
 
-        if (libraryBooks!.AvailableCount <= 0)
+        if (libraryBooks is null)
+            return NotFound();
+
+        if (libraryBooks.AvailableCount <= 0)
             return ValidationProblem();
 
         await _libraryBooksRepository.DecrementLibraryBooksCountAsync(libraryBooks.Id);

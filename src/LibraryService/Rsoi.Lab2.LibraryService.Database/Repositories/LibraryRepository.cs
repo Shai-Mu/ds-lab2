@@ -28,12 +28,21 @@ public class LibraryRepository : ILibraryRepository
         return library.Id;
     }
 
-    public async Task<List<Core.Models.Library>> GetLibrariesForCity(string city)
+    public async Task<List<Core.Models.Library>> GetLibrariesForCity(string city, int? page, int? size)
     {
-        var libraries = await _libraryContext.Libraries
+        var getLibrariesQuery = _libraryContext.Libraries
             .AsNoTracking()
-            .Where(l => l.City == city)
-            .ToListAsync();
+            .Where(l => l.City == city);
+
+        if (page is not null && size is not null)
+            getLibrariesQuery = getLibrariesQuery
+                .Skip(page.Value * size.Value);
+                
+        if (size is not null)
+            getLibrariesQuery = getLibrariesQuery
+                .Take(size.Value);
+
+        var libraries = await getLibrariesQuery.ToListAsync();
 
         return libraries.Select(LibraryConverter.Convert).ToList()!;
     }

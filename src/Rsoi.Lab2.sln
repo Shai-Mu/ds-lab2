@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsoi.Lab2.ReservationServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsoi.Lab2.ReservationService.Database", "ReservationService\Rsoi.Lab2.ReservationService.Database\Rsoi.Lab2.ReservationService.Database.csproj", "{CAC3913C-98F7-4FA2-989B-8D96FFE2FC2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsoi.Lab2.GatewayService.Services", "GatewayService\Rsoi.Lab2.GatewayService.Services\Rsoi.Lab2.GatewayService.Services.csproj", "{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{CAC3913C-98F7-4FA2-989B-8D96FFE2FC2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAC3913C-98F7-4FA2-989B-8D96FFE2FC2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAC3913C-98F7-4FA2-989B-8D96FFE2FC2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F8B8811E-5535-4D3C-9713-97747A97BE35} = {BF791585-B393-45B0-8F3D-40F11D08F99D}
@@ -93,5 +99,6 @@ Global
 		{301E289F-B2E1-4475-98F6-322D2991EDF6} = {A723DE62-0F31-49A3-B5E1-35F3E5FB12AC}
 		{5DD89077-871A-4804-B941-392ACD318F98} = {A723DE62-0F31-49A3-B5E1-35F3E5FB12AC}
 		{CAC3913C-98F7-4FA2-989B-8D96FFE2FC2B} = {A723DE62-0F31-49A3-B5E1-35F3E5FB12AC}
+		{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8} = {FDB55EEE-3904-47F6-B74D-DD4BB618BD00}
 	EndGlobalSection
 EndGlobal

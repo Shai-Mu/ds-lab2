@@ -1,5 +1,3 @@
-using Rsoi.Lab2.LibrarySystem;
-
 namespace Rsoi.Lab2.GatewayService.HttpApi;
 
 public static class Program

@@ -16,7 +16,7 @@ public class RatingsController : ControllerBase
     
     [HttpGet]
     [Route("ratings")]
-    public async Task<IActionResult> GetRatingByNameAsync([FromQuery]string username)
+    public async Task<IActionResult> FindRatingByNameAsync([FromQuery]string username)
     {
         var rating = await _ratingRepository.FindRatingForUsernameAsync(username);
 
@@ -34,7 +34,7 @@ public class RatingsController : ControllerBase
 
     [HttpPatch]
     [Route("ratings/{id}")]
-    public async Task<IActionResult> EditRatingForUser([FromRoute] Guid id, int stars)
+    public async Task<IActionResult> EditRatingForUser([FromRoute] Guid id, [FromQuery]int stars)
     {
         if (stars > 100 || stars < 0)
         {

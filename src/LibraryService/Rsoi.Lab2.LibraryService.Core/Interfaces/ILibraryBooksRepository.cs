@@ -14,5 +14,7 @@ public interface ILibraryBooksRepository
 
     public Task<LibraryBooks?> FindLibraryBooksByBooksIdAndLibraryIdAsync(Guid booksId, Guid libraryId);
 
-    public Task<List<LibraryBooks>> GetLibraryBooksByLibraryIdAsync(Guid libraryId, int? take, int? skip);
+    public Task<List<LibraryBooks>> GetLibraryBooksByLibraryIdAsync(Guid libraryId,
+        int? page,
+        int? size);
 }

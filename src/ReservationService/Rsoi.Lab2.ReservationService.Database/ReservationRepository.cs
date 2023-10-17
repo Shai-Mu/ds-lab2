@@ -12,7 +12,7 @@ public class ReservationRepository : IReservationRepository
         _reservationContext = reservationContext;
     }
 
-    public async Task<Guid> CreateReservationAsync(string username, Guid booksId, Guid libraryId, DateTimeOffset tillDate)
+    public async Task<Core.Reservation> CreateReservationAsync(string username, Guid booksId, Guid libraryId, DateTimeOffset tillDate)
     {
         var reservation = new Reservation(Guid.NewGuid(), username, booksId, libraryId, ReservationStatus.Rented,
             DateTimeOffset.Now, tillDate);
@@ -21,7 +21,9 @@ public class ReservationRepository : IReservationRepository
 
         await _reservationContext.SaveChangesAsync();
 
-        return reservation.Id;
+        var reservationToReturn = await _reservationContext.Reservations.FirstAsync(r => r.Id == reservation.Id);
+
+        return ReservationConverter.Convert(reservationToReturn);
     }
 
     public async Task<List<Core.Reservation>> GetReservationsForUserAsync(string username)

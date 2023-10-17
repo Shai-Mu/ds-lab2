@@ -6,13 +6,13 @@ namespace Rsoi.Lab2.ReservationService.HttpApi.Models;
 [DataContract]
 public class CloseReservationResponse
 {
-    public ReservationStatus Status { get; set; }
-    
     public DateTimeOffset CloseDate { get; set; }
+    
+    public Reservation Reservation { get; set; }
 
-    public CloseReservationResponse(ReservationStatus status, DateTimeOffset closeDate)
+    public CloseReservationResponse(Reservation reservation, DateTimeOffset closeDate)
     {
-        Status = status;
+        Reservation = reservation;
         CloseDate = closeDate;
     }
 }
