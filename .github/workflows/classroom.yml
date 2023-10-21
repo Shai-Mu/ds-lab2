@@ -123,13 +123,14 @@ jobs:
         run: |
           ./scripts/wait-script.sh
         env:
+          WAIT_HOST: "194.58.92.130"
           WAIT_PORTS: 8080,8070,8060,8050
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
-          collection: 4/postman/collection.json
-          environment: 4/postman/environment.json
+          collection: v4/postman/collection.json
+          environment: v4/postman/environment.json
           envVar: '[{ "key": "baseUrl", "value": "${{ secrets.HOST_ADDRESS }}:8080" }]'
           delayRequest: 100
           reporters: '[ "cli" ]'
