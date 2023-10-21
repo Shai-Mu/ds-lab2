@@ -17,16 +17,106 @@ jobs:
 
       - uses: docker/setup-buildx-action@v2
 
-      # TODO build and run unit tests
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
 
-      - name: Build images
-        timeout-minutes: 10
-        run: docker compose build
+      - name: Build Gateway service
+        run: dotnet publish src/GatewayService/Rsoi.Lab2.GatewayService.HttpApi/Rsoi.Lab2.GatewayService.HttpApi.csproj -c Release -o Lab2Publish/GatewayService
 
-      - name: Run containers
+      - name: Build Library service
+        run: dotnet publish src/LibraryService/Rsoi.Lab2.LibraryService.HttpApi/Rsoi.Lab2.LibraryService.HttpApi.csproj -c Release -o Lab2Publish/LibraryService
+
+      - name: Build Rating service
+        run: dotnet publish src/RatingService/Rsoi.Lab2.RatingService.HttpApi/Rsoi.Lab2.RatingService.HttpApi.csproj -c Release -o Lab2Publish/RatingService
+
+      - name: Build Rating service
+        run: dotnet publish src/ReservationService/Rsoi.Lab2.ReservationService.HttpApi/Rsoi.Lab2.ReservationService.HttpApi.csproj -c Release -o Lab2Publish/ReservationService
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push gateway service docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: ./gateway-service.Dockerfile
+          tags: shaimu/ds_lab:lab2-gateway-service
+
+      - name: Build and push library service docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: ./library-service.Dockerfile
+          tags: shaimu/ds_lab:lab2-library-service
+
+      - name: Build and push rating service docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: ./rating-service.Dockerfile
+          tags: shaimu/ds_lab:lab2-rating-service
+
+      - name: Build and push reservation service docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: ./reservation-service.Dockerfile
+          tags: shaimu/ds_lab:lab2-reservation-service
+
+      #- name: Build images
+      #  timeout-minutes: 10
+      #  run: docker compose build
+
+      #- name: Run containers
+      #  timeout-minutes: 5
+      #  run: |
+      #    export DOCKER_HOST="ssh://root@${{ secrets.HOST_ADDRESS }}"
+      #    docker compose down
+      #    docker compose up -d
+      #    ./scripts/wait-script.sh
+      #    unset DOCKER_HOST
+      #  env:
+      #    WAIT_PORTS: 8080,8070,8060,8050
+
+      - name: Stop app
+        continue-on-error: true
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST_ADDRESS }}
+          username: ${{ secrets.HOST_USERNAME }}
+          password: ${{ secrets.HOST_PASSWORD }}
+          script: | 
+            cd lab2
+            docker-compose -f docker-compose.yml down
+
+      - name: Send docker-compose.yml file
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST_ADDRESS }}
+          username: ${{ secrets.HOST_USERNAME }}
+          password: ${{ secrets.HOST_PASSWORD }}
+          source: "docker-compose.yml"
+          target: "lab2"
+
+
+      - name: Start app
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST_ADDRESS }}
+          username: ${{ secrets.HOST_USERNAME }}
+          password: ${{ secrets.HOST_PASSWORD }}
+          script: | 
+            cd lab2
+            docker-compose -f docker-compose.yml up -d --pull always
+
+      - name: Check system is alive
         timeout-minutes: 5
         run: |
-          docker compose up -d
           ./scripts/wait-script.sh
         env:
           WAIT_PORTS: 8080,8070,8060,8050
@@ -34,9 +124,9 @@ jobs:
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
-          # TODO insert your variant
-          collection: <variant>/postman/collection.json
-          environment: <variant>/postman/environment.json
+          collection: 4/postman/collection.json
+          environment: 4/postman/environment.json
+          envVar: '[{ "key": "baseUrl", "value": "${{ secrets.HOST_ADDRESS }}:8080" }]'
           delayRequest: 100
           reporters: '[ "cli" ]'
 
@@ -54,7 +144,7 @@ jobs:
           column_offset: 'F'
           mark: "'+"
 
-      - name: Stop containers
-        if: always()
-        continue-on-error: true
-        run: docker compose down -v
+      #- name: Stop containers
+      #  if: always()
+      #  continue-on-error: true
+      #  run: docker compose down -v

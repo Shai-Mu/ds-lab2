@@ -1,7 +1,7 @@
 version: "3"
 services:
   postgres:
-    image: library/postgres:13
+    image: postgres:latest
     container_name: postgres
     restart: on-failure
     environment:
@@ -10,11 +10,60 @@ services:
       POSTGRES_DB: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./postgres/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
 
-# TODO добавить сервисы
+  gateway-service:
+    image: ds_lab2/gateway_service
+    build: 
+      dockerfile: gateway-service.Dockerfile
+    container_name: gateway-service
+    depends_on:
+      - postgres
+    restart: always
+    volumes:
+      - ~/lab2/configs/gateway-service/appsettings.json:/app/appsettings.json
+    ports:
+      - "8080:80"
+
+  library-service:
+    image: ds_lab2/library_service
+    build: 
+      dockerfile: library-service.Dockerfile
+    container_name: library-service
+    depends_on:
+      - postgres
+    restart: always
+    volumes:
+      - ~/lab2/configs/library-service/appsettings.json:/app/appsettings.json
+    ports:
+      - "8060:80"
+
+  rating-service:
+    image: ds_lab2/rating_service
+    build: 
+      dockerfile: rating-service.Dockerfile
+    container_name: rating-service
+    depends_on:
+      - postgres
+    restart: always
+    volumes:
+      - ~/lab2/configs/rating-service/appsettings.json:/app/appsettings.json
+    ports:
+      - "8050:80"
+
+  reservation-service:
+    image: ds_lab2/reservation_service
+    build: 
+      dockerfile: reservation-service.Dockerfile
+    container_name: reservation-service
+    depends_on:
+      - postgres
+    restart: always
+    volumes:
+      - ~/lab2/configs/reservation-service/appsettings.json:/app/appsettings.json
+    ports:
+      - "8070:80"
 
 volumes:
-  db-data:
+  postgres-data:
