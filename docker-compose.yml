@@ -9,14 +9,12 @@ services:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
   gateway-service:
-    image: ds_lab2/gateway_service
-    build: 
-      dockerfile: gateway-service.Dockerfile
+    image: shaimu/ds_lab:lab2-gateway-service
     container_name: gateway-service
     depends_on:
       - postgres
@@ -27,9 +25,7 @@ services:
       - "8080:80"
 
   library-service:
-    image: ds_lab2/library_service
-    build: 
-      dockerfile: library-service.Dockerfile
+    image: shaimu/ds_lab:lab2-library-service
     container_name: library-service
     depends_on:
       - postgres
@@ -41,8 +37,6 @@ services:
 
   rating-service:
     image: ds_lab2/rating_service
-    build: 
-      dockerfile: rating-service.Dockerfile
     container_name: rating-service
     depends_on:
       - postgres
@@ -53,9 +47,7 @@ services:
       - "8050:80"
 
   reservation-service:
-    image: ds_lab2/reservation_service
-    build: 
-      dockerfile: reservation-service.Dockerfile
+    image: shaimu/ds_lab:lab2-reservation-service
     container_name: reservation-service
     depends_on:
       - postgres
