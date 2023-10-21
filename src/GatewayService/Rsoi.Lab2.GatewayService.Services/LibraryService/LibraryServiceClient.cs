@@ -92,7 +92,7 @@ public class LibraryServiceClient : IDisposable
 
     public async Task TakeBookAsync(Guid bookId, Guid libraryId)
     {
-        var response = await _restClient.PatchAsync(new RestRequest($"libraries/{libraryId}/books/{bookId}/increment", Method.Patch));
+        var response = await _restClient.PatchAsync(new RestRequest($"libraries/{libraryId}/books/{bookId}/decrement", Method.Patch));
         
         if (response.ResponseStatus is not ResponseStatus.Completed &&
             response.StatusCode is not HttpStatusCode.NotFound)

@@ -10,8 +10,8 @@ public static class BookReservationConverter
     {
         return new BookReservationResponse(reservation.Id,
             ReservationStatusConverter.Convert(reservation.ReservationStatus),
-            reservation.StartDate.ToString(),
-            reservation.TillDate.ToString(),
+            reservation.StartDate.ToString("yyyy-MM-dd"),
+            reservation.TillDate.ToString("yyyy-MM-dd"),
             LibraryBookConverter.Convert(books),
             LibraryConverter.Convert(library));
     }

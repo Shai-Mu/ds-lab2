@@ -101,7 +101,7 @@ namespace Rsoi.Lab2.GatewayService.HttpApi.Controllers
         [Route("/api/v1/rating")]
         [SwaggerOperation("ApiV1RatingGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(UserRatingResponse), description: "Рейтинг пользователя")]
-        public async Task<IActionResult> ApiV1RatingGet([FromHeader][Required]string xUserName)
+        public async Task<IActionResult> ApiV1RatingGet([FromHeader(Name = "X-User-Name")][Required]string xUserName)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace Rsoi.Lab2.GatewayService.HttpApi.Controllers
         [Route("/api/v1/reservations")]
         [SwaggerOperation("ApiV1ReservationsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<BookReservationResponse>), description: "Информация по всем взятым в прокат книгам")]
-        public async Task<IActionResult> ApiV1ReservationsGet([FromHeader][Required()]string xUserName)
+        public async Task<IActionResult> ApiV1ReservationsGet([FromHeader(Name = "X-User-Name")][Required()]string xUserName)
         { 
             try
             {
@@ -166,7 +166,7 @@ namespace Rsoi.Lab2.GatewayService.HttpApi.Controllers
         [SwaggerOperation("ApiV1ReservationsPost")]
         [SwaggerResponse(statusCode: 200, type: typeof(TakeBookResponse), description: "Информация о бронировании")]
         [SwaggerResponse(statusCode: 400, type: typeof(ValidationErrorResponse), description: "Ошибка валидации данных")]
-        public async Task<IActionResult> ApiV1ReservationsPost([FromHeader][Required]string xUserName, [FromBody]TakeBookRequest takeBookRequest)
+        public async Task<IActionResult> ApiV1ReservationsPost([FromHeader(Name = "X-User-Name")][Required]string xUserName, [FromBody]TakeBookRequest takeBookRequest)
         {
             try
             {
@@ -192,8 +192,8 @@ namespace Rsoi.Lab2.GatewayService.HttpApi.Controllers
 
                 return Ok(new TakeBookResponse(reservation.Id, 
                     ReservationStatusConverter.Convert(reservation.ReservationStatus), 
-                    DateOnly.FromDateTime(reservation.StartDate.DateTime).ToString(), 
-                    DateOnly.FromDateTime(reservation.TillDate.DateTime).ToString(),
+                    reservation.StartDate.ToString("yyyy-MM-dd"), 
+                    reservation.TillDate.ToString("yyyy-MM-dd"),
                     LibraryBookConverter.Convert(book),
                     LibraryConverter.Convert(library),
                     new UserRatingResponse(rating.Rating.Stars)));
@@ -227,7 +227,7 @@ namespace Rsoi.Lab2.GatewayService.HttpApi.Controllers
         [Route("/api/v1/reservations/{reservationUid}/return")]
         [SwaggerOperation("ApiV1ReservationsReservationUidReturnPost")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Бронирование не найдено")]
-        public async Task<IActionResult> ApiV1ReservationsReservationUidReturnPost([FromRoute][Required]Guid reservationUid, [FromHeader][Required]string xUserName, [FromBody]ReturnBookRequest returnBookRequest)
+        public async Task<IActionResult> ApiV1ReservationsReservationUidReturnPost([FromRoute][Required]Guid reservationUid, [FromHeader(Name = "X-User-Name")][Required]string xUserName, [FromBody]ReturnBookRequest returnBookRequest)
         { 
             try
             {
@@ -254,7 +254,7 @@ namespace Rsoi.Lab2.GatewayService.HttpApi.Controllers
 
                 await _ratingServiceClient.EditRatingForUserAsync(rating.Rating.Id, finalRating);
 
-                return Ok();
+                return NoContent();
             }
             catch (InternalServiceException e) when (e is { ErrorCode: 404, ServiceName: "Reservation service" })
             {

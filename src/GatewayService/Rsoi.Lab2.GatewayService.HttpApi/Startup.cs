@@ -31,6 +31,9 @@ public class Startup
         services.Configure<ServiceConfiguration>(Configuration.GetSection(nameof(ServiceConfiguration)));
         
         services.AddSingleton<LibraryServiceClient>();
+        services.AddSingleton<RatingServiceClient>();
+        services.AddSingleton<ReservationServiceClient>();
+
 
     }
     

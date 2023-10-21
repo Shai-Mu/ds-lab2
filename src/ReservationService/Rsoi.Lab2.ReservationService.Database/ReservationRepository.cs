@@ -12,10 +12,10 @@ public class ReservationRepository : IReservationRepository
         _reservationContext = reservationContext;
     }
 
-    public async Task<Core.Reservation> CreateReservationAsync(string username, Guid booksId, Guid libraryId, DateTimeOffset tillDate)
+    public async Task<Core.Reservation> CreateReservationAsync(string username, Guid booksId, Guid libraryId, DateOnly tillDate)
     {
         var reservation = new Reservation(Guid.NewGuid(), username, booksId, libraryId, ReservationStatus.Rented,
-            DateTimeOffset.Now, tillDate);
+            DateOnly.FromDateTime(DateTime.Now), tillDate);
 
         _reservationContext.Reservations.Add(reservation);
 

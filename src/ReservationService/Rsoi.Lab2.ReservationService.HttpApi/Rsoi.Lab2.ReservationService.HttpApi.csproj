@@ -22,6 +22,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\Rsoi.Lab2.ReservationService.Database\Rsoi.Lab2.ReservationService.Database.csproj" />
+      <ProjectReference Include="..\Rsoi.Lab2.ReservationService.Dto\Rsoi.Lab2.ReservationService.Dto.csproj" />
     </ItemGroup>
 
 </Project>

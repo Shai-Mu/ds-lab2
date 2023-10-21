@@ -4,9 +4,8 @@ using Newtonsoft.Json;
 using RestSharp;
 using Rsoi.Lab2.GatewayService.Services.Confiugration;
 using Rsoi.Lab2.GatewayService.Services.Exceptions;
-using Rsoi.Lab2.RatingService.HttpApi.Models;
 using Rsoi.Lab2.ReservationService.Core;
-using Rsoi.Lab2.ReservationService.HttpApi.Models;
+using Rsoi.Lab2.ReservationService.Dto.Models;
 
 namespace Rsoi.Lab2.GatewayService.Services.LibraryService;
 
@@ -36,7 +35,7 @@ public class ReservationServiceClient
     {
         var response = await _restClient
             .PostAsync(new RestRequest("reservations", Method.Post)
-            .AddBody(new CreateReservationRequest(username, booksId, libraryId, tillDate)));
+            .AddBody(new CreateReservationRequest(username, booksId, libraryId, DateOnly.FromDateTime(tillDate.UtcDateTime))));
             
         if (response.ResponseStatus is not ResponseStatus.Completed &&
             response.StatusCode is not HttpStatusCode.NotFound)
@@ -48,10 +47,10 @@ public class ReservationServiceClient
     
     public async Task<CloseReservationResponse> CloseReservationAsync(Guid reservationId, DateTimeOffset closeDate)
     {
-        var query = $"?closeDate={closeDate:O}";
+        var query = $"?closeDate={DateOnly.FromDateTime(closeDate.UtcDateTime)}";
         
         var response = await _restClient
-            .PatchAsync(new RestRequest($"reservations/{reservationId}" + query, Method.Patch));
+            .PostAsync(new RestRequest($"reservations/{reservationId}/close" + query, Method.Post));
         
         if (response.ResponseStatus is not ResponseStatus.Completed &&
             response.StatusCode is not HttpStatusCode.NotFound)

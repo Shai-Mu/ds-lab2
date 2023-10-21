@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Rsoi.Lab2.ReservationService.HttpApi.Models;
+namespace Rsoi.Lab2.ReservationService.Dto.Models;
 
 [DataContract]
 public class GetReservationRequest

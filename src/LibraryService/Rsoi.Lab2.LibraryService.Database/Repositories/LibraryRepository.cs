@@ -14,9 +14,9 @@ public class LibraryRepository : ILibraryRepository
         _libraryContext = libraryContext;
     }
 
-    public async Task<Guid> CreateLibraryAsync(string name, string city, string address)
+    public async Task<Guid> CreateLibraryAsync(Guid id, string name, string city, string address)
     {
-        var library = new Library(Guid.NewGuid(),
+        var library = new Library(id,
             name, 
             city,
             address);
@@ -36,7 +36,7 @@ public class LibraryRepository : ILibraryRepository
 
         if (page is not null && size is not null)
             getLibrariesQuery = getLibrariesQuery
-                .Skip(page.Value * size.Value);
+                .Skip((page.Value - 1) * size.Value);
                 
         if (size is not null)
             getLibrariesQuery = getLibrariesQuery

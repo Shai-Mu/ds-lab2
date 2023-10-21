@@ -5,7 +5,7 @@ namespace Rsoi.Lab2.LibraryService.Core.Interfaces;
 
 public interface IBooksRepository
 {
-    public Task<Guid> CreateBooksAsync(string name, string genre, string author, BookCondition condition);
+    public Task<Guid> CreateBooksAsync(Guid id, string name, string genre, string author, BookCondition condition);
 
     public Task<Books?> FindBooksWithCredentialsAsync(string name, string genre, string author, BookCondition condition); 
 

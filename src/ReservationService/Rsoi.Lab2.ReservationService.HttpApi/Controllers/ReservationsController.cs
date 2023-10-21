@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Rsoi.Lab2.ReservationService.Core;
-using Rsoi.Lab2.ReservationService.HttpApi.Models;
+using Rsoi.Lab2.ReservationService.Dto.Models;
 
 namespace Rsoi.Lab2.ReservationService.HttpApi.Controllers;
 
@@ -29,7 +29,7 @@ public class ReservationsController : ControllerBase
 
     [HttpGet]
     [Route("user/{username}/reservations")]
-    public async Task<IActionResult> GetReservationsForUserAsync([FromQuery][Required] string username)
+    public async Task<IActionResult> GetReservationsForUserAsync([FromRoute][Required] string username)
     {
         var reservations = await _reservationRepository.GetReservationsForUserAsync(username);
 
@@ -49,22 +49,24 @@ public class ReservationsController : ControllerBase
         return Ok(reservation);
     }
 
-    [HttpPatch]
-    [Route("reservations/{id}")]
-    public async Task<IActionResult> CloseReservationAsync([FromRoute]Guid id, [FromQuery]DateTimeOffset closeDate)
+    [HttpPost]
+    [Route("reservations/{id}/close")]
+    public async Task<IActionResult> CloseReservationAsync([FromRoute]Guid id, [FromQuery]DateOnly closeDate)
     {
         var reservation = await _reservationRepository.FindReservationAsync(id);
 
         if (reservation is null)
             return NotFound();
 
-        var status = reservation.TillDate.Date > closeDate.Date 
+        var status = reservation.TillDate > closeDate 
             ? ReservationStatus.Returned 
             : ReservationStatus.Expired;
 
         await _reservationRepository.UpdateReservationAsync(id, status);
 
-        return Ok(new CloseReservationResponse((await _reservationRepository.FindReservationAsync(id))!,
-            closeDate.Date));
+        var response = new CloseReservationResponse((await _reservationRepository.FindReservationAsync(id))!,
+            closeDate);
+
+        return Ok(response);
     }
 }

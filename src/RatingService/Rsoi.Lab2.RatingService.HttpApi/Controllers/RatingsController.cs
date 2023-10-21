@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Rsoi.Lab2.RatingService.Core;
-using Rsoi.Lab2.RatingService.HttpApi.Models;
+using Rsoi.Lab2.RatingService.Dto.Models;
 
 namespace Rsoi.Lab2.RatingService.HttpApi.Controllers;
 
@@ -36,14 +36,14 @@ public class RatingsController : ControllerBase
     [Route("ratings/{id}")]
     public async Task<IActionResult> EditRatingForUser([FromRoute] Guid id, [FromQuery]int stars)
     {
-        if (stars > 100 || stars < 0)
+        int normalizedStars = stars switch
         {
-            var validationErrors = new ModelStateDictionary();
-            validationErrors.AddModelError(nameof(stars), "Value can't be less than 0 and more than 100");
-            return ValidationProblem(validationErrors);
-        }
-                
-        await _ratingRepository.EditRatingAsync(id, stars);
+            > 100 => 100,
+            < 1 => 1,
+            _ => stars
+        };
+
+        await _ratingRepository.EditRatingAsync(id, normalizedStars);
 
         return Ok();
     }

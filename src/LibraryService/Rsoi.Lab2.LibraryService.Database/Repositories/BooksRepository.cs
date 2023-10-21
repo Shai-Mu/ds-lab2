@@ -16,9 +16,9 @@ public class BooksRepository : IBooksRepository
         _libraryContext = libraryContext;
     }
 
-    public async Task<Guid> CreateBooksAsync(string name, string genre, string author, BookCondition condition)
+    public async Task<Guid> CreateBooksAsync(Guid id, string name, string genre, string author, BookCondition condition)
     {
-        var books = new Books(Guid.NewGuid(), name, author, genre, BookConditionConverter.Convert(condition));
+        var books = new Books(id, name, author, genre, BookConditionConverter.Convert(condition));
 
         await _libraryContext.Books.AddAsync(books);
 

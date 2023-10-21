@@ -37,7 +37,7 @@ public class LibraryController : ControllerBase
     [Route("libraries")]
     public async Task<IActionResult> CreateLibraryAsync([FromBody] Library library)
     {
-        var libraryId = await _libraryRepository.CreateLibraryAsync(library.Name, library.City, library.Address);
+        var libraryId = await _libraryRepository.CreateLibraryAsync(library.Id, library.Name, library.City, library.Address);
 
         return Ok(libraryId);
     }
@@ -46,7 +46,7 @@ public class LibraryController : ControllerBase
     [Route("books")]
     public async Task<IActionResult> CreateBooksAsync([FromBody] Books books)
     {
-        var booksId = await _booksRepository.CreateBooksAsync(books.Name, books.Genre, books.Author, books.Condition);
+        var booksId = await _booksRepository.CreateBooksAsync(books.Id, books.Name, books.Genre, books.Author, books.Condition);
 
         return Ok(booksId);
     }
@@ -116,7 +116,7 @@ public class LibraryController : ControllerBase
 
         if (booksWithNewState is null)
         {
-            var newBooksId = await _booksRepository.CreateBooksAsync(books.Name, books.Genre, books.Author, newState);
+            var newBooksId = await _booksRepository.CreateBooksAsync(Guid.NewGuid(), books.Name, books.Genre, books.Author, newState);
 
             await _libraryBooksRepository.CreateLibraryBooksAsync(newBooksId, libraryId, 0);
 

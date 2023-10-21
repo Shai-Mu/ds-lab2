@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Rsoi.Lab2.ReservationService.HttpApi.Models;
+namespace Rsoi.Lab2.ReservationService.Dto.Models;
 
 [DataContract]
 public class CreateReservationRequest
@@ -15,12 +15,12 @@ public class CreateReservationRequest
     public Guid LibraryId { get; set; }
     
     [DataMember]
-    public DateTimeOffset TillDate { get; set; }
+    public DateOnly TillDate { get; set; }
 
     public CreateReservationRequest(string username, 
         Guid booksId, 
         Guid libraryId, 
-        DateTimeOffset tillDate)
+        DateOnly tillDate)
     {
         Username = username;
         BooksId = booksId;

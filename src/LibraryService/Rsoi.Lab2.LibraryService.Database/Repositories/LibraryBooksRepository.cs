@@ -74,7 +74,7 @@ public class LibraryBooksRepository : ILibraryBooksRepository
 
         if (page is not null && size is not null)
             librariesBooksQuery = librariesBooksQuery
-                .Skip(page.Value * size.Value);
+                .Skip((page.Value - 1) * size.Value);
         
         if (size is not null)
             librariesBooksQuery = librariesBooksQuery

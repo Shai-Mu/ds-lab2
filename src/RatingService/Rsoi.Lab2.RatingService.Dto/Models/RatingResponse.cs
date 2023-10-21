@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Rsoi.Lab2.RatingService.Core;
 
-namespace Rsoi.Lab2.RatingService.HttpApi.Models;
+namespace Rsoi.Lab2.RatingService.Dto.Models;
 
 [DataContract]
 public class RatingResponse

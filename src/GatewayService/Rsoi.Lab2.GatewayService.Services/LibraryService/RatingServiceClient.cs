@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using Rsoi.Lab2.GatewayService.Services.Confiugration;
 using Rsoi.Lab2.GatewayService.Services.Exceptions;
-using Rsoi.Lab2.RatingService.HttpApi.Models;
+using Rsoi.Lab2.RatingService.Dto.Models;
 
 namespace Rsoi.Lab2.GatewayService.Services.LibraryService;
 

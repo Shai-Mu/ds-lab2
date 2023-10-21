@@ -14,9 +14,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\LibraryService\Rsoi.Lab2.LibraryService.Dto\Rsoi.Lab2.LibraryService.Dto.csproj" />
-      <ProjectReference Include="..\..\RatingService\Rsoi.Lab2.RatingService.HttpApi\Rsoi.Lab2.RatingService.HttpApi.csproj" />
+      <ProjectReference Include="..\..\RatingService\Rsoi.Lab2.RatingService.Dto\Rsoi.Lab2.RatingService.Dto.csproj" />
       <ProjectReference Include="..\..\ReservationService\Rsoi.Lab2.ReservationService.Core\Rsoi.Lab2.ReservationService.Core.csproj" />
-      <ProjectReference Include="..\..\ReservationService\Rsoi.Lab2.ReservationService.HttpApi\Rsoi.Lab2.ReservationService.HttpApi.csproj" />
+      <ProjectReference Include="..\..\ReservationService\Rsoi.Lab2.ReservationService.Dto\Rsoi.Lab2.ReservationService.Dto.csproj" />
     </ItemGroup>
 
 </Project>

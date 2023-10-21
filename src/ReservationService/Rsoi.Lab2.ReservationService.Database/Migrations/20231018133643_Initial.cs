@@ -20,8 +20,8 @@ namespace Rsoi.Lab2.ReservationService.Database.Migrations
                     BooksId = table.Column<Guid>(type: "uuid", nullable: false),
                     LibraryId = table.Column<Guid>(type: "uuid", nullable: false),
                     ReservationStatus = table.Column<int>(type: "integer", nullable: false),
-                    StartDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    TillDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    TillDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {

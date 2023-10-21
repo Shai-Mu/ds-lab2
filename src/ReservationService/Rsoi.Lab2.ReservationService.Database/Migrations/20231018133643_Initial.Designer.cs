@@ -12,7 +12,7 @@ using Rsoi.Lab2.ReservationService.Database;
 namespace Rsoi.Lab2.ReservationService.Database.Migrations
 {
     [DbContext(typeof(ReservationContext))]
-    [Migration("20231009133148_Initial")]
+    [Migration("20231018133643_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -39,11 +39,11 @@ namespace Rsoi.Lab2.ReservationService.Database.Migrations
                     b.Property<int>("ReservationStatus")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("StartDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
 
-                    b.Property<DateTimeOffset>("TillDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("TillDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Username")
                         .IsRequired()

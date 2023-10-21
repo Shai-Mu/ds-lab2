@@ -32,6 +32,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsoi.Lab2.ReservationServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsoi.Lab2.GatewayService.Services", "GatewayService\Rsoi.Lab2.GatewayService.Services\Rsoi.Lab2.GatewayService.Services.csproj", "{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsoi.Lab2.RatingService.Dto", "RatingService\Rsoi.Lab2.RatingService.Dto\Rsoi.Lab2.RatingService.Dto.csproj", "{21ADD6E1-8D9C-4D26-9700-1269211EDC6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsoi.Lab2.ReservationService.Dto", "ReservationService\Rsoi.Lab2.ReservationService.Dto\Rsoi.Lab2.ReservationService.Dto.csproj", "{D0D554FE-3509-4508-B247-CF8C4E57957E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +90,14 @@ Global
 		{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21ADD6E1-8D9C-4D26-9700-1269211EDC6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21ADD6E1-8D9C-4D26-9700-1269211EDC6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21ADD6E1-8D9C-4D26-9700-1269211EDC6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21ADD6E1-8D9C-4D26-9700-1269211EDC6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0D554FE-3509-4508-B247-CF8C4E57957E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0D554FE-3509-4508-B247-CF8C4E57957E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0D554FE-3509-4508-B247-CF8C4E57957E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0D554FE-3509-4508-B247-CF8C4E57957E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F8B8811E-5535-4D3C-9713-97747A97BE35} = {BF791585-B393-45B0-8F3D-40F11D08F99D}
@@ -100,5 +112,7 @@ Global
 		{5DD89077-871A-4804-B941-392ACD318F98} = {A723DE62-0F31-49A3-B5E1-35F3E5FB12AC}
 		{CAC3913C-98F7-4FA2-989B-8D96FFE2FC2B} = {A723DE62-0F31-49A3-B5E1-35F3E5FB12AC}
 		{49ABDC5D-CD1A-4691-B5FF-427EEC0FE7E8} = {FDB55EEE-3904-47F6-B74D-DD4BB618BD00}
+		{21ADD6E1-8D9C-4D26-9700-1269211EDC6B} = {F5F68EC9-748D-4A5D-A95E-9E0ACAC5126B}
+		{D0D554FE-3509-4508-B247-CF8C4E57957E} = {A723DE62-0F31-49A3-B5E1-35F3E5FB12AC}
 	EndGlobalSection
 EndGlobal

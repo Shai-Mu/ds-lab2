@@ -2,7 +2,7 @@
 
 public interface IReservationRepository
 {
-    public Task<Reservation> CreateReservationAsync(string username, Guid booksId, Guid libraryId, DateTimeOffset tillDate);
+    public Task<Reservation> CreateReservationAsync(string username, Guid booksId, Guid libraryId, DateOnly tillDate);
 
     public Task<List<Reservation>> GetReservationsForUserAsync(string username);
 

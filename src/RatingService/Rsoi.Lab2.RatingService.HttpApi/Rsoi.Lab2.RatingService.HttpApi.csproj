@@ -23,5 +23,6 @@
     <ItemGroup>
       <ProjectReference Include="..\Rsoi.Lab2.RatingService.Core\Rsoi.Lab2.RatingService.Core.csproj" />
       <ProjectReference Include="..\Rsoi.Lab2.RatingService.Database\Rsoi.Lab2.RatingService.Database.csproj" />
+      <ProjectReference Include="..\Rsoi.Lab2.RatingService.Dto\Rsoi.Lab2.RatingService.Dto.csproj" />
     </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Rsoi.Lab2.RatingService.HttpApi.Models;
+namespace Rsoi.Lab2.RatingService.Dto.Models;
 
 [DataContract]
 public class CreateRatingRequest

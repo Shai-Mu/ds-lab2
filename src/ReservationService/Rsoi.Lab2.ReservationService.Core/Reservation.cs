@@ -12,17 +12,17 @@ public class Reservation
     
     public ReservationStatus ReservationStatus { get; set; }
     
-    public DateTimeOffset StartDate { get; set; }
+    public DateOnly StartDate { get; set; }
     
-    public DateTimeOffset TillDate { get; set; }
+    public DateOnly TillDate { get; set; }
 
     public Reservation(Guid id,
         string username,
         Guid booksId,
         Guid libraryId,
         ReservationStatus reservationStatus,
-        DateTimeOffset startDate,
-        DateTimeOffset tillDate)
+        DateOnly startDate,
+        DateOnly tillDate)
     {
         Id = id;
         Username = username;

@@ -36,11 +36,11 @@ namespace Rsoi.Lab2.ReservationService.Database.Migrations
                     b.Property<int>("ReservationStatus")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("StartDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
 
-                    b.Property<DateTimeOffset>("TillDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("TillDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Username")
                         .IsRequired()
