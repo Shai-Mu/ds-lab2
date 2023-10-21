@@ -58,7 +58,7 @@ public class ReservationsController : ControllerBase
         if (reservation is null)
             return NotFound();
 
-        var status = reservation.TillDate > closeDate 
+        var status = reservation.TillDate >= closeDate 
             ? ReservationStatus.Returned 
             : ReservationStatus.Expired;
 
