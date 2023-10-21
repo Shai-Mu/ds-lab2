@@ -36,7 +36,7 @@ services:
       - "8060:80"
 
   rating-service:
-    image: ds_lab2/rating_service
+    image: shaimu/ds_lab:lab2-rating-service
     container_name: rating-service
     depends_on:
       - postgres
