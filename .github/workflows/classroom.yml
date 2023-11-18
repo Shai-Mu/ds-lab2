@@ -123,7 +123,7 @@ jobs:
         run: |
           ./scripts/wait-script.sh
         env:
-          WAIT_HOST: "194.58.92.130"
+          WAIT_HOST: ${{ secrets.HOST_ADDRESS }}
           WAIT_PORTS: 8080,8070,8060,8050
 
       - name: Run API Tests
